@@ -5,10 +5,12 @@ using UnityEngine;
 public class Player_Health : MonoBehaviour
 {
     [Header("Health")]
-    [SerializeField] private float startingHealth;
+    [SerializeField] public float startingHealth;
+    public float increaseHealth4;
+    public float combined;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    public bool dead;
 
     [Header("iFrames")]
     [SerializeField] private float invulDuration;
@@ -20,10 +22,11 @@ public class Player_Health : MonoBehaviour
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
+        increaseHealth4 = 0;
     }
     public void playerTakeDamage(float dmg)
     {
-        currentHealth = Mathf.Clamp(currentHealth - dmg, 0, startingHealth);    
+        currentHealth = Mathf.Clamp(currentHealth - dmg, 0, startingHealth + increaseHealth4);    
 
         if (currentHealth > 0)
         {
@@ -35,7 +38,7 @@ public class Player_Health : MonoBehaviour
         {
             //player is dead :)
             anim.SetTrigger("Die");
-            Destroy(gameObject);
+            dead = true;
         }
     }
 
@@ -50,8 +53,16 @@ public class Player_Health : MonoBehaviour
     }
     public void AddHealth(float _value)
     {
-        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth);
+        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth + increaseHealth4);
         Debug.Log("Health aquired");
+    }
+
+    public void IncreaseMaxHealth (float num)
+    {
+        increaseHealth4 = 1;
+        
+        currentHealth = Mathf.Clamp(currentHealth + num, 0, startingHealth + increaseHealth4);
+        Debug.Log("Health increased");
     }
     private IEnumerator Invulnerability()
     {
@@ -66,5 +77,9 @@ public class Player_Health : MonoBehaviour
         }
 
         Physics2D.IgnoreLayerCollision(8, 9, false);
+    }
+    public void FixedUpdate()
+    {
+        combined = startingHealth + increaseHealth4; 
     }
 }
