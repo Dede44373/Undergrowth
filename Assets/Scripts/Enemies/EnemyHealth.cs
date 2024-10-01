@@ -29,11 +29,11 @@ public class EnemyHealth : MonoBehaviour
         {
             anim.SetTrigger("Hurt");
             StartCoroutine(Invulnerability());
-            //player is hurt
+            //enemy is hurt
         }
         else
         {
-            //player is dead :)
+            //enemy is dead :)
             anim.SetTrigger("Die");
             Destroy(gameObject);
         }

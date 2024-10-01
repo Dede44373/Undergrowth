@@ -11,6 +11,7 @@ public class Golden_Leaf : MonoBehaviour
     {
          if (collision.tag == "Player")
             collision.GetComponent<Player_Health>().IncreaseMaxHealth(healthValue);
+            collision.GetComponent<Player_Health>().AddHealth(healthValue);
             touched = true;
             gameObject.SetActive(false);
     }

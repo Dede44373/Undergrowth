@@ -5,27 +5,48 @@ using UnityEngine;
 
 public class Breakable_Object : MonoBehaviour
 {
-    public int objectHealth;
+    [Header("Health")]
+    [SerializeField] private float startingHealth;
+    public float currentHealth { get; private set; }
+
+    private bool dead;
+
+    [Header("iFrames")]
+    [SerializeField] private float invulDuration;
+    [SerializeField] private int numberOfFlashes;
+   
     // Start is called before the first frame update
-    public void objectTakeDamage(int damage) // int damage is the amount of damage we take
+    private void Awake()
     {
-        objectHealth -= damage; // subtract damage
-        if (objectHealth <= 1) // if its below or equals to zero then run the code below
+        currentHealth = startingHealth;
+ 
+    
+    }
+    public void TakeDamage(float dmg)
+    {
+        currentHealth = Mathf.Clamp(currentHealth - dmg, 0, startingHealth);
+
+        if (currentHealth > 0)
         {
-            Destroy(gameObject); // destroy the wall lol
+          
+           
+            //enemy is hurt
+        }
+        else
+        {
+            //enemy is dead :)
+        
+            Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision) // Whenever a collider that has 'IsTrigger' set to true touches this, it will run whatever is below, Collider2D collision being the thing that touched it
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Sword"))
+        if (collision.gameObject.tag == "Sword")
         {
-            objectTakeDamage(1); // Calls the objectTakeDamage function, with the parameter 1 which in your case, how u set up the function being 1 damage
+            TakeDamage(1);
+
+
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

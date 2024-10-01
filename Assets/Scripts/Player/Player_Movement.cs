@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
+    public Player_Health hp;
     public bool idleActive = true;
     public Player_Attacks playerAttack;
     public Rigidbody2D PlayerRigidBody;
@@ -55,34 +56,37 @@ public class Player_Movement : MonoBehaviour
         //print(PlayerRigidBody.velocity.y);
         float horizontalInput = 0f;
         // Flipping character Left & right when moving + setting horizontalInput for convinience + WALKING SPEEEED
-        if(playerAttack.usingSword == false)
-        {      
-            
-            horizontalInput = Input.GetAxis("Horizontal");
-            PlayerRigidBody.velocity = new Vector2(horizontalInput * WalkSpeed, PlayerRigidBody.velocity.y);
-            if (horizontalInput > 0.01f)
-            {
-                transform.localScale = new Vector3(0.4425f, 0.4425f, 0.4425f);
-                idleActive = false;
-                
-            }
-            else if (horizontalInput < -0.01f)
-            {
-                transform.localScale = new Vector3(-0.4425f, 0.4425f, 0.4425f);
-                idleActive = false;
-                
-            }
-        } 
-        else
+        if (hp.dead == false)
         {
-            idleActive = true;
-            PlayerRigidBody.velocity = new Vector2(PlayerRigidBody.velocity.x, PlayerRigidBody.velocity.y);
+            if (playerAttack.usingSword == false)
+            {
+
+                horizontalInput = Input.GetAxis("Horizontal");
+                PlayerRigidBody.velocity = new Vector2(horizontalInput * WalkSpeed, PlayerRigidBody.velocity.y);
+                if (horizontalInput > 0.01f)
+                {
+                    transform.localScale = new Vector3(0.4425f, 0.4425f, 0.4425f);
+                    idleActive = false;
+
+                }
+                else if (horizontalInput < -0.01f)
+                {
+                    transform.localScale = new Vector3(-0.4425f, 0.4425f, 0.4425f);
+                    idleActive = false;
+
+                }
+            }
+            else
+            {
+                idleActive = true;
+                PlayerRigidBody.velocity = new Vector2(PlayerRigidBody.velocity.x, PlayerRigidBody.velocity.y);
+            }
+
+
+            //set animator parameters
+            anim.SetBool("MC_Walk", horizontalInput != 0);
+            anim.SetBool("grounded", IsGrounded());
         }
-
-
-        //set animator parameters
-        anim.SetBool("MC_Walk", horizontalInput != 0);
-        anim.SetBool("grounded", IsGrounded());
     }
     // What happens when you activate the "jump" function
     private void jump()
