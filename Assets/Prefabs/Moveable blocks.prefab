@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 8061618822346324297}
   - component: {fileID: 8566691835739509974}
   - component: {fileID: 8253211517419284300}
-  m_Layer: 0
+  - component: {fileID: 1481612625380717695}
+  m_Layer: 6
   m_Name: Moveable blocks
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4465059797009069413}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 66.84, y: 11.96, z: 0.036042992}
   m_LocalScale: {x: 2.3612, y: 2.3612, z: 2.3612}
   m_ConstrainProportionsScale: 0
@@ -158,7 +159,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &8253211517419284300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,3 +172,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cbe4473dac730a418d53eba206487e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1481612625380717695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4465059797009069413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 629b3bc1f463c6145b9a46f6147d70cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb2d: {fileID: 8566691835739509974}
+  strength: 90
+  delay: 1
+  OnBegin:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDone:
+    m_PersistentCalls:
+      m_Calls: []

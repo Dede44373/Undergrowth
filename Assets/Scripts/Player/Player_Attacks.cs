@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class Player_Attacks : MonoBehaviour
 {
-    [Header ("References")]
+    [Header("References")]
     public Player_Movement movement;
     public Interactable_Object Interactable_Object;
     public Animator anim;
     public Breakable_Object Object;
+    public Player_Health HP;
 
-    [Header ("Attacking stats")]
+    [Header("Attacking stats")]
     public Transform attackPoint;
     public float attackRange = 0.5f;
     public float attackDamage;
@@ -23,6 +24,7 @@ public class Player_Attacks : MonoBehaviour
     public bool usingSword = false;
     public bool hurtObject;
     public int playerPower;
+    public bool inCombo;
 
     [Header("Shifting Distance")]
     [SerializeField] private float speed;
@@ -39,17 +41,30 @@ public class Player_Attacks : MonoBehaviour
 
 
     // Update is called once per frame
+    public void CloseCombo()
+    {
+        anim.SetBool("InCombo", false);
+        usingSword = false;
+    }
+
     void Update()
     {
-        if (Time.time >= nextAttackTime)
+        if (Input.GetKeyDown(KeyCode.Return) && movement.IsGrounded() && Interactable_Object.setSwordActive == true) // if the enter key is pressed, and the usingSword boolean value is set to false then we can run the following code below
         {
-
-            if (Input.GetKeyDown(KeyCode.Return) && usingSword == false && Interactable_Object.setSwordActive == true) // if the enter key is pressed, and the usingSword boolean value is set to false then we can run the following code below
+            if (usingSword == false)
             {
                 usingSword = true;
                 anim.SetTrigger("Attack1");
-                nextAttackTime = Time.time + 1f / attackRate;
+            } else
+            {
+                if (anim.GetBool("InCombo") == false)
+                {
+                    anim.SetBool("InCombo", true);
+                }
             }
+
+            nextAttackTime = Time.time + 1f / attackRate;
+
         }
 
         if (hurtObject == true) // checks if player is attacking the object
@@ -57,6 +72,10 @@ public class Player_Attacks : MonoBehaviour
             hurtObject = false;
         }
 
+        if (HP.hurt == true)
+        {
+            usingSword = false;
+        }
         //usingSword = true; // set usingSword to true so that we cant run this twice, as we would need this to be false in order to run this again
         // set the boolean SwordSwing to true on the animator so we can play the animation
         /* if (movement.transform.localScale.x > 0)
@@ -74,16 +93,24 @@ public class Player_Attacks : MonoBehaviour
      }
  }*/
     }
-        private IEnumerator SpeedUp()
+    private IEnumerator SpeedUp()
     {
         movement.PlayerRigidBody.drag = drag; // change this number
-        yield return new WaitForSeconds(0.3f); // adjust as needed, so far just waiting a very small amount
+        yield return new WaitForSeconds(0.4f); // adjust as needed, so far just waiting a very small amount
 
         movement.PlayerRigidBody.drag = 0; // whatever ur number is
-        usingSword = false;
+        //usingSword = false;
         StopCoroutine(SpeedUp());
     }
 
+    public void EnableSword()
+    {
+        print(inCombo);
+        if (!anim.GetBool("InCombo"))
+        {
+            usingSword = false;
+        }
+    }
 
 
     void attack()
@@ -92,13 +119,20 @@ public class Player_Attacks : MonoBehaviour
 
         // Detect Enemies in range of attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-  
+
 
         //Damage them
         foreach (Collider2D Enemy in hitEnemies)
         {
-            Enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
-          
+            if (Enemy.GetComponent<EnemyHealth>())
+            {
+                Enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+            }
+
+            if (Enemy.GetComponent<Knockback>())
+            {
+                Enemy.GetComponent<Knockback>().PlayFeedback(gameObject);
+            }
         }
         if (movement.transform.localScale.x > 0)
         {
@@ -111,7 +145,9 @@ public class Player_Attacks : MonoBehaviour
         {
             StartCoroutine(SpeedUp());
             movement.PlayerRigidBody.AddForce(new Vector2(-shiftDistance, 0));
+
         }
+
     }
 
     private void OnDrawGizmosSelected()

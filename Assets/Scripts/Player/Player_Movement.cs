@@ -32,23 +32,26 @@ public class Player_Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && IsGrounded() && 
+        if (hp.dead == false)
+        {
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && IsGrounded() &&
             playerAttack.usingSword == false)
-        {
-            jump();
-        }
-
-        if (PlayerRigidBody.velocity.y < 0)
-        {
-            PlayerRigidBody.gravityScale = gravityChange;
-        } else
-        {
-            if (PlayerRigidBody.gravityScale != 1.5f)
             {
-                PlayerRigidBody.gravityScale = 1.5f;
+                jump();
+            }
+
+            if (PlayerRigidBody.velocity.y < 0)
+            {
+                PlayerRigidBody.gravityScale = gravityChange;
+            }
+            else
+            {
+                if (PlayerRigidBody.gravityScale != 1.5f)
+                {
+                    PlayerRigidBody.gravityScale = 1.5f;
+                }
             }
         }
-
     }
 
     private void FixedUpdate()
@@ -103,7 +106,7 @@ public class Player_Movement : MonoBehaviour
 
     }
 
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         RaycastHit2D raycasthit = Physics2D.BoxCast(Collider.bounds.center, Collider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
         return raycasthit.collider != null;

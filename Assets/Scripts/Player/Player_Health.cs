@@ -5,12 +5,14 @@ using UnityEngine;
 public class Player_Health : MonoBehaviour
 {
     [Header("Health")]
+    [SerializeField] Player_Movement playM;
     [SerializeField] public float startingHealth;
     public float increaseHealth4;
     public float combined;
     public float currentHealth { get; private set; }
     private Animator anim;
     public bool dead;
+    public bool hurt;
 
     [Header("iFrames")]
     [SerializeField] private float invulDuration;
@@ -31,14 +33,17 @@ public class Player_Health : MonoBehaviour
         if (currentHealth > 0)
         {
             anim.SetTrigger("Hurt");
+            hurt= true;
             StartCoroutine(Invulnerability());
             //player is hurt
+            
         }
         else 
         {
             //player is dead :)
             anim.SetTrigger("Die");
             dead = true;
+            playM.PlayerRigidBody.velocity= Vector3.zero;
         }
     }
 
@@ -77,6 +82,7 @@ public class Player_Health : MonoBehaviour
         }
 
         Physics2D.IgnoreLayerCollision(8, 9, false);
+        hurt = false;
     }
     public void FixedUpdate()
     {

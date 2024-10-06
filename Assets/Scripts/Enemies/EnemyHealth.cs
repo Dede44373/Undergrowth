@@ -35,8 +35,12 @@ public class EnemyHealth : MonoBehaviour
         {
             //enemy is dead :)
             anim.SetTrigger("Die");
-            Destroy(gameObject);
+            
         }
+    }
+    private void die()
+    {
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -61,5 +65,6 @@ public class EnemyHealth : MonoBehaviour
         }
 
         Physics2D.IgnoreLayerCollision(8, 9, false);
+        StopAllCoroutines();
     }
 }

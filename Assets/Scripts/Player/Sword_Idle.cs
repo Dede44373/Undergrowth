@@ -6,6 +6,7 @@ public class Sword_Idle : MonoBehaviour
 {
     public Player_Attacks atk;
     public Player_Movement mov;
+    public Player_Health health;
     public GameObject SideSword;
     public Interactable_Object obj;
     // Start is called before the first frame update
@@ -21,7 +22,7 @@ public class Sword_Idle : MonoBehaviour
             {
                     SideSword.GetComponent<Renderer>().enabled = true;
 
-                if (atk.usingSword == true)
+                if (atk.usingSword == true || health.dead == true)
                 {
                 SideSword.GetComponent<Renderer>().enabled = false;
 
