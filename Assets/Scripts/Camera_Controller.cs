@@ -24,7 +24,7 @@ public class Camera_Controller : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float aheadDistance;
     [SerializeField] private float cameraSpeed;
-    private float lookAhead;
+    public float lookAhead;
 
     private void Start()
     {

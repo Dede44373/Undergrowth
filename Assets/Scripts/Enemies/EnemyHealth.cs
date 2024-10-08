@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    
     [Header("Health")]
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
@@ -14,6 +15,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float invulDuration;
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRend;
+    public Camera_Shake cam;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -30,12 +32,15 @@ public class EnemyHealth : MonoBehaviour
             anim.SetTrigger("Hurt");
             StartCoroutine(Invulnerability());
             //enemy is hurt
+            cam.startShake =true;
+            cam.intensity = 0.15f;
         }
         else
         {
             //enemy is dead :)
             anim.SetTrigger("Die");
-            
+            cam.startShake = true;
+            cam.intensity = 0.25f;
         }
     }
     private void die()

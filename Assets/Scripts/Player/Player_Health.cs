@@ -18,6 +18,7 @@ public class Player_Health : MonoBehaviour
     [SerializeField] private float invulDuration;
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRend;
+    public Camera_Shake cam;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -35,6 +36,8 @@ public class Player_Health : MonoBehaviour
             anim.SetTrigger("Hurt");
             hurt= true;
             StartCoroutine(Invulnerability());
+            cam.startShake = true;
+            cam.intensity = 0.2f;
             //player is hurt
             
         }
@@ -44,6 +47,8 @@ public class Player_Health : MonoBehaviour
             anim.SetTrigger("Die");
             dead = true;
             playM.PlayerRigidBody.velocity= Vector3.zero;
+            cam.startShake = true;
+            cam.intensity = 0.5f;
         }
     }
 
@@ -52,7 +57,6 @@ public class Player_Health : MonoBehaviour
         if (collision.gameObject.tag == "Spike")
         {
             playerTakeDamage(1);
-
 
         }
     }

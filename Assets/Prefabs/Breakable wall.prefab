@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4954430481170819423}
   - component: {fileID: 8684928555411006021}
   - component: {fileID: 7890677193653062375}
-  - component: {fileID: -1491693651473787932}
   - component: {fileID: -3899303884829669304}
+  - component: {fileID: 727177435149556117}
   m_Layer: 7
   m_Name: Breakable wall
   m_TagString: BreakWall
@@ -28,9 +28,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8077987417037739401}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.463524, y: 11.327593, z: 0.036042992}
-  m_LocalScale: {x: 1.4604034, y: 5.9535975, z: 0.25754002}
+  m_LocalScale: {x: 0.5551888, y: 0.5551888, z: 0.5551888}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.46226418, g: 0.32443994, b: 0.21586864, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 329f13477d459c54abb9eb6fdc62de27, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -119,34 +119,19 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.18, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10, y: 10}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.92, y: 8.16}
   m_EdgeRadius: 0
---- !u!114 &-1491693651473787932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8077987417037739401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75fcfcf0788ddd349896a56b37db4b2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingHealth: 2
-  invulDuration: 0
-  numberOfFlashes: 0
 --- !u!95 &-3899303884829669304
 Animator:
   serializedVersion: 5
@@ -168,3 +153,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &727177435149556117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8077987417037739401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765223ce30e064d4db36ccdb02aa1b2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 2
+  invulDuration: 0
+  numberOfFlashes: 0
+  newSprite: {fileID: 21300000, guid: c453da0a4c2c581429950e52474b638b, type: 3}
+  broken: {fileID: 21300000, guid: dcc8debc52e039c4196a854f02001f17, type: 3}

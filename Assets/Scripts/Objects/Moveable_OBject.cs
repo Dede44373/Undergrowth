@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Moveable_OBject : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Camera_Shake cam;
+    
+    public void Hit(GameObject gameObject)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        cam.startShake = true;
+        cam.intensity = 0.4f;
     }
 }

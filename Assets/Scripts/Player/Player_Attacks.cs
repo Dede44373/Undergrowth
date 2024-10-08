@@ -17,6 +17,7 @@ public class Player_Attacks : MonoBehaviour
     public float attackRange = 0.5f;
     public float attackDamage;
     public LayerMask enemyLayers;
+    public LayerMask wallLayers;
     public float attackRate = 2f;
     float nextAttackTime = 0f;
 
@@ -120,6 +121,17 @@ public class Player_Attacks : MonoBehaviour
         // Detect Enemies in range of attack
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
+        Collider2D[] hitBarricade = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, wallLayers);
+
+
+        foreach (Collider2D Enemy in hitBarricade)
+        {
+            if (Enemy.GetComponent<Breakable_Object>())
+            {
+                Debug.Log("wall Hit");
+                Enemy.GetComponent<Breakable_Object>().TakeDamage(attackDamage);
+            }
+        }
 
         //Damage them
         foreach (Collider2D Enemy in hitEnemies)
@@ -127,11 +139,16 @@ public class Player_Attacks : MonoBehaviour
             if (Enemy.GetComponent<EnemyHealth>())
             {
                 Enemy.GetComponent<EnemyHealth>().TakeDamage(attackDamage);
+                Debug.Log("Enemy Hit");
             }
 
             if (Enemy.GetComponent<Knockback>())
             {
                 Enemy.GetComponent<Knockback>().PlayFeedback(gameObject);
+            }
+            if (Enemy.GetComponent<Moveable_OBject>())
+            {
+                Enemy.GetComponent<Moveable_OBject>().Hit(gameObject);
             }
         }
         if (movement.transform.localScale.x > 0)
