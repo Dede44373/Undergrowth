@@ -10,6 +10,7 @@ TagManager:
   - Sword
   - Enemy
   - BreakWall
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

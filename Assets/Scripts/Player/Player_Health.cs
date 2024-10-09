@@ -66,6 +66,16 @@ public class Player_Health : MonoBehaviour
         Debug.Log("Health aquired");
     }
 
+    public void Respawn()
+    { 
+        dead = false;
+        AddHealth(startingHealth+increaseHealth4);
+        anim.ResetTrigger("Die");
+        anim.ResetTrigger("Hurt");
+        anim.SetTrigger("Alive");
+        StartCoroutine(Invulnerability());
+    }
+
     public void IncreaseMaxHealth (float num)
     {
         increaseHealth4 = 1;

@@ -9,7 +9,7 @@ public class LockEnter_BossDoor : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private void Start()
     {
-        transform.position = new Vector3(86.7981f, -10, transform.position.z);
+        transform.position = new Vector3(431.0764f, 3.43f, transform.position.z);
     }
 
 
@@ -18,7 +18,7 @@ public class LockEnter_BossDoor : MonoBehaviour
     {
         if (door.atBoss == true)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(86.7981f, -17, transform.position.z), ref velocity, speed);
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(431.0764f, -1.3f, transform.position.z), ref velocity, speed);
 
 
         }

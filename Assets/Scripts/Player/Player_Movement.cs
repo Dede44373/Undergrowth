@@ -34,6 +34,7 @@ public class Player_Movement : MonoBehaviour
     {
         if (hp.dead == false)
         {
+            print(IsGrounded());
             if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && IsGrounded() &&
             playerAttack.usingSword == false)
             {

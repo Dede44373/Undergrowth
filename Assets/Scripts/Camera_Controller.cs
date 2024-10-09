@@ -35,7 +35,7 @@ public class Camera_Controller : MonoBehaviour
         //bossroom camera movement
         if (doorTouched.atBoss == true)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(currentPosX,  -14.5f, transform.position.z), ref velocity, speed);
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(currentPosX,  1f, transform.position.z), ref velocity, speed);
             cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize,zoom, ref zoomSpeed, smoothTime);
             notAtBoss = false;
         }
