@@ -12,13 +12,15 @@ public class EnemyMelee : MonoBehaviour
     [SerializeField] private LayerMask playerLayer;
     private float cooldownTimer = Mathf.Infinity;
 
+    //references
     private Animator anim;
     private Player_Health playerHealth;
+    private Enemy_Patrol enemyPatrol;
 
     private void Awake()
     {
         anim=GetComponent<Animator>();
-        
+        enemyPatrol = GetComponentInParent<Enemy_Patrol>();
     }
 
     private void Update()
@@ -35,6 +37,10 @@ public class EnemyMelee : MonoBehaviour
             }
 
         }
+
+        if (enemyPatrol != null)
+            enemyPatrol.enabled = !PlayerInSight();
+
     }   
     private bool PlayerInSight()
     {

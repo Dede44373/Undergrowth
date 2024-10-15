@@ -41,6 +41,13 @@ public class EnemyHealth : MonoBehaviour
             anim.SetTrigger("Die");
             cam.startShake = true;
             cam.intensity = 0.25f;
+            //Disabling enemy patrol
+
+            if (GetComponentInParent<Enemy_Patrol>() != null ) 
+            GetComponentInParent<Enemy_Patrol>().enabled = false;
+
+            if (GetComponentInParent<EnemyMelee>() != null)
+                GetComponent<EnemyMelee>().enabled = false;
         }
     }
     private void die()
