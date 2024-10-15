@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SideTile_v0
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: e47d138f471e0ab44a7cf9fef5e47be6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5379584, g: 0.6240532, b: 0.7264151, a: 1}
   m_Transform:
     e00: 1
     e01: 0
