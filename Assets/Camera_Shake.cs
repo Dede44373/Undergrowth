@@ -5,7 +5,6 @@ using UnityEngine;
 public class Camera_Shake : MonoBehaviour
 {
     public Camera_Controller cont;
-    [SerializeField] private Transform player;
     public bool startShake=false;
     public AnimationCurve animationCurve;
     public float duration = 1f;
@@ -22,17 +21,21 @@ public class Camera_Shake : MonoBehaviour
 
     IEnumerator Shaking()
     {
-        Vector3 startPosition = new(player.localPosition.x + cont.lookAhead, player.localPosition.y + 1, player.localPosition.z - 5);
+        print("e");
+        Vector3 startPosition = new Vector3(0, 0, 0);
         float elapsedTime = 0f;
         
 
         while (elapsedTime < duration)
         {
+            //startPosition = new(player.localPosition.x, player.localPosition.y, player.localPosition.z - 5);
             elapsedTime += Time.deltaTime;
             float strength = animationCurve.Evaluate(elapsedTime/duration) * intensity;
             transform.position = startPosition + Random.insideUnitSphere * strength;
+            //print(transform.parent.transform.position);
             yield return null;
         }
+
         transform.position = startPosition;
     }
 }

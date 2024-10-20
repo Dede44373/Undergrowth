@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float startingHealth;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    public bool dead;
 
     [Header("iFrames")]
     [SerializeField] private float invulDuration;
@@ -33,14 +33,16 @@ public class EnemyHealth : MonoBehaviour
             StartCoroutine(Invulnerability());
             //enemy is hurt
             cam.startShake =true;
-            cam.intensity = 0.15f;
+            cam.intensity = 0.3f;
         }
         else
         {
             //enemy is dead :)
             anim.SetTrigger("Die");
             cam.startShake = true;
-            cam.intensity = 0.25f;
+            cam.intensity = 0.6f;
+            GetComponent<BoxCollider2D>().enabled = false;
+            dead = true;
             //Disabling enemy patrol
 
             if (GetComponentInParent<Enemy_Patrol>() != null ) 

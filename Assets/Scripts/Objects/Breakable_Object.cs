@@ -37,14 +37,14 @@ public class Breakable_Object : MonoBehaviour
             StartCoroutine(Invulnerability());
             //enemy is hurt
             cam.startShake = true;
-            cam.intensity = 0.1f;
+            cam.intensity = 0.3f;
         }
         else
         {
             spriteRend.sprite = broken;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;
             cam.startShake = true;
-            cam.intensity = 0.5f;
+            cam.intensity = 0.7f;
         }
     }
     private void die()

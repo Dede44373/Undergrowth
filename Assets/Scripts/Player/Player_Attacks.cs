@@ -150,6 +150,11 @@ public class Player_Attacks : MonoBehaviour
             {
                 Enemy.GetComponent<Moveable_OBject>().Hit(gameObject);
             }
+            if (Enemy.GetComponent<Poison_Health>())
+            {   
+                Enemy.GetComponent<Poison_Health>().TakeDamage(attackDamage);
+                Debug.Log("poison hit");
+            }
         }
         if (movement.transform.localScale.x > 0)
         {

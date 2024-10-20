@@ -37,7 +37,7 @@ public class Player_Health : MonoBehaviour
             hurt= true;
             StartCoroutine(Invulnerability());
             cam.startShake = true;
-            cam.intensity = 0.2f;
+            cam.intensity = 0.4f;
             //player is hurt
             
         }
@@ -48,7 +48,7 @@ public class Player_Health : MonoBehaviour
             dead = true;
             playM.PlayerRigidBody.velocity= Vector3.zero;
             cam.startShake = true;
-            cam.intensity = 0.5f;
+            cam.intensity = 0.8f;
         }
     }
 
