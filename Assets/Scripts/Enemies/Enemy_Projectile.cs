@@ -29,7 +29,7 @@ public class Enemy_Projectile : EnemyDamage //will damage the player
             gameObject.SetActive(false);
         }
         if (enemyHealth.dead == true)
-        {
+        { 
             Destroy(gameObject);
         }
     }

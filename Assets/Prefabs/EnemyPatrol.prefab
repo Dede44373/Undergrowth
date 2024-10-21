@@ -123,6 +123,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7692416511371194883}
     m_Modifications:
+    - target: {fileID: 1780545274425031725, guid: fd035a53f0082284caf3ae505c73df86, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 768
+      objectReference: {fileID: 0}
     - target: {fileID: 6311205494534191537, guid: fd035a53f0082284caf3ae505c73df86, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -178,6 +182,14 @@ PrefabInstance:
     - target: {fileID: 8604102205624760309, guid: fd035a53f0082284caf3ae505c73df86, type: 3}
       propertyPath: colliderDistance
       value: 0.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140497494986898159, guid: fd035a53f0082284caf3ae505c73df86, type: 3}
+      propertyPath: invulDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140497494986898159, guid: fd035a53f0082284caf3ae505c73df86, type: 3}
+      propertyPath: numberOfFlashes
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

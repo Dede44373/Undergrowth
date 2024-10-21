@@ -42,7 +42,10 @@ public class Parallax : MonoBehaviour
             transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(1.5f, 1.5f, transform.localScale.z), ref velocity, speed);
            
         }
-
+        if (door.atBoss == false)
+        {
+            transform.localScale = Vector3.SmoothDamp(transform.localScale, new Vector3(0.9344f, 0.9344f, transform.localScale.z), ref velocity, speed);
+        }
     }
     
 

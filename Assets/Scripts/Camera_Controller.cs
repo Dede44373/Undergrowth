@@ -9,7 +9,7 @@ public class Camera_Controller : MonoBehaviour
     //Boss rooom camera movement
     [SerializeField] private float speed;
     public Door doorTouched;
-    private bool notAtBoss = true;
+    public bool notAtBoss = true;
     private float currentPosX;
     private Vector3 velocity = Vector3.zero;
 
@@ -21,34 +21,51 @@ public class Camera_Controller : MonoBehaviour
 
 
     // Follow player
+    public Player_Health health;
     [SerializeField] private Transform player;
     [SerializeField] private float aheadDistance;
     [SerializeField] private float cameraSpeed;
     public float lookAhead;
 
-    private void Start()
+    public void Start()
     {
+       
         transform.localScale = new Vector3(1, 1, 1);
     }
-    private void Update()
+ 
+    public void Update()  
     {
-        //bossroom camera movement
+        //Follow player
+        if (notAtBoss == true)
+        {
+            transform.position = new Vector3(player.position.x + lookAhead, player.position.y + 1, transform.position.z);
+            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, 5, ref zoomSpeed, smoothTime);
+            lookAhead = Mathf.Lerp(lookAhead, (aheadDistance * player.localScale.x), Time.deltaTime * cameraSpeed);
+        }
+
+            if (health.dead == true)
+            {
+                notAtBoss = true;
+                doorTouched.atBoss = false;
+            }
+
         if (doorTouched.atBoss == true)
         {
-            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(currentPosX,  1f, transform.position.z), ref velocity, speed);
-            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize,zoom, ref zoomSpeed, smoothTime);
             notAtBoss = false;
-        }
-
-        //Follow player 
-        if (doorTouched.atBoss == false && notAtBoss== true)
-        {
-            transform.position = new Vector3(player.position.x + lookAhead, player.position.y+1, transform.position.z);
-            lookAhead = Mathf.Lerp(lookAhead, (aheadDistance * player.localScale.x), Time.deltaTime * cameraSpeed);
-            
+            Arena();
         }
     }
+    public void Arena()
+    {
+        if (doorTouched.atBoss == true && notAtBoss == false)
+        {   
+            cam.orthographicSize = Mathf.SmoothDamp(cam.orthographicSize, zoom, ref zoomSpeed, smoothTime);
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(currentPosX, 1f, transform.position.z), ref velocity, speed);
+            notAtBoss = false;
+        }
+     
 
+    }
     
     public void MoveToNewRoom(Transform _newRoom)
     {

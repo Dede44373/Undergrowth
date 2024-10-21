@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -9,6 +10,14 @@ public class Door : MonoBehaviour
     [SerializeField] private Camera_Controller cam;
     public bool atBoss;
 
+    public void Update()
+    {
+        if(cam.notAtBoss == true)
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
+            atBoss = false;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,7 +27,8 @@ public class Door : MonoBehaviour
             {
                 cam.MoveToNewRoom(nextRoom);
                 atBoss = true;
-                Destroy(gameObject);
+                cam.Arena();
+                GetComponent<BoxCollider2D>().enabled = false;
             }
             else
             {

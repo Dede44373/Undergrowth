@@ -7,7 +7,7 @@ public class Player_Health : MonoBehaviour
     [Header("Health")]
     [SerializeField] Player_Movement playM;
     [SerializeField] public float startingHealth;
-    public float increaseHealth4;
+    public float increaseHealth = 0;
     public float combined;
     public float currentHealth { get; private set; }
     private Animator anim;
@@ -19,17 +19,20 @@ public class Player_Health : MonoBehaviour
     [SerializeField] private int numberOfFlashes;
     private SpriteRenderer spriteRend;
     public Camera_Shake cam;
+    public Golden_Leaf leaf;
+    public Golden_Leaf leaf2;
+
     // Start is called before the first frame update
     private void Awake()
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>();
-        increaseHealth4 = 0;
+        increaseHealth = 0;
     }
     public void playerTakeDamage(float dmg)
     {
-        currentHealth = Mathf.Clamp(currentHealth - dmg, 0, startingHealth + increaseHealth4);    
+        currentHealth = Mathf.Clamp(currentHealth - dmg, 0, startingHealth + increaseHealth);    
 
         if (currentHealth > 0)
         {
@@ -60,29 +63,39 @@ public class Player_Health : MonoBehaviour
 
         }
     }
+    public void IncreaseMaxHealth (float num)
+    {
+        currentHealth = Mathf.Clamp(leaf.healthValue, 0, startingHealth + increaseHealth);
+        Debug.Log("Health increased");
+        AddHealth(5);
+    }
+
     public void AddHealth(float _value)
     {
-        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth + increaseHealth4);
+        currentHealth = Mathf.Clamp(currentHealth + _value, 0, startingHealth + increaseHealth);
         Debug.Log("Health aquired");
     }
 
+    public void MaxingHealth(float _value)
+    {
+        currentHealth = leaf.healthValue;
+        Debug.Log("Health aquired");
+    }
+    public void MaxingHealth2(float _value)
+    {
+        currentHealth = leaf2.healthValue;
+        Debug.Log("Health aquired");
+    }
     public void Respawn()
     { 
         dead = false;
-        AddHealth(startingHealth+increaseHealth4);
+        AddHealth(startingHealth+increaseHealth);
         anim.ResetTrigger("Die");
         anim.ResetTrigger("Hurt");
         anim.SetTrigger("Alive");
         StartCoroutine(Invulnerability());
     }
 
-    public void IncreaseMaxHealth (float num)
-    {
-        increaseHealth4 = 1;
-        
-        currentHealth = Mathf.Clamp(currentHealth + num, 0, startingHealth + increaseHealth4);
-        Debug.Log("Health increased");
-    }
     private IEnumerator Invulnerability()
     {
         Physics2D.IgnoreLayerCollision(8, 9, true);
@@ -100,6 +113,6 @@ public class Player_Health : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        combined = startingHealth + increaseHealth4; 
+        combined = startingHealth + increaseHealth; 
     }
 }

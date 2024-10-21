@@ -29,11 +29,13 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth > 0)
         {
-            anim.SetTrigger("Hurt");
+  
+        
             StartCoroutine(Invulnerability());
             //enemy is hurt
             cam.startShake =true;
             cam.intensity = 0.3f;
+      
         }
         else
         {
@@ -68,17 +70,16 @@ public class EnemyHealth : MonoBehaviour
     }
     private IEnumerator Invulnerability()
     {
-        Physics2D.IgnoreLayerCollision(8, 9, true);
+        
         //invulnerability duration
         for (int i = 0; i < numberOfFlashes; i++)
         {
-            spriteRend.color = new Color(1, 0.8f, 0.8f, 0.9f);
+             print("fjnwkfnjk");
+            spriteRend.color = Color.red;
             yield return new WaitForSeconds(invulDuration / (numberOfFlashes * 2));
-            spriteRend.color = Color.white;
+            spriteRend.color =  Color.white;
             yield return new WaitForSeconds(invulDuration / (numberOfFlashes * 2));
         }
-
-        Physics2D.IgnoreLayerCollision(8, 9, false);
         StopAllCoroutines();
     }
 }

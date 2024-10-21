@@ -22,5 +22,8 @@ public class LockEnter_BossDoor : MonoBehaviour
 
 
         }
+        if (door.atBoss == false)
+            transform.position = new Vector3(431.0764f, 3.43f, transform.position.z);
+
     }
 }
